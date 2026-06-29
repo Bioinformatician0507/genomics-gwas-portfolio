@@ -1,41 +1,33 @@
-# Genomics GWAS Portfolio
+# Project 1 — GWAS Pipeline
 
-End-to-end genomics pipelines built with PLINK2, bcftools, and Python.
-Covers GWAS, variant calling, population stratification, and polygenic risk scoring.
+## Overview
+End-to-end GWAS pipeline on a synthetic dataset using PLINK2 and Python.
 
-**Author:** Iqra Nadeem | MSc Bioinformatics | University of Agriculture Faisalabad
+## Tools
+- PLINK2 v2.00a5.10
+- Python (pandas, numpy, matplotlib)
 
----
+## Pipeline Steps
+1. Generated synthetic dataset: 500 samples, 50,000 SNPs, binary phenotype
+2. Quality control filters:
+   - Genotype missingness: --geno 0.05
+   - Sample missingness: --mind 0.1  
+   - Minor allele frequency: --maf 0.01
+   - Hardy-Weinberg equilibrium: --hwe 1e-6
+   - Result: 47,974 variants passed QC
+3. Association testing: Firth logistic regression (258 cases, 242 controls)
+4. Visualization: Manhattan plot + QQ plot
 
-## Project 1 — GWAS Pipeline
+## Results
+- Genomic inflation factor λ = 0.974 (well-calibrated, no inflation)
+- 0 genome-wide significant hits (expected — synthetic null data)
+- Pipeline validated on null data before application to real datasets
 
-**Tools:** PLINK2, Python, matplotlib  
-**Dataset:** Synthetic (500 samples, 50,000 SNPs)  
+## Figures
+![GWAS Results](gwas_plots.png)
+
+## How to Run
+Open `project1_gwas_pipeline.ipynb` in Google Colab (free T4 GPU recommended).
 **Notebook:** [Open in Colab](https://colab.research.google.com/drive/1wx-VayEWBuPMsq3hy1CqZsNwRYpuzEz5#scrollTo=ifGNH3X0pMac)
 
-### What I did
-- Installed PLINK2 and generated a synthetic GWAS dataset
-- Applied standard QC filters: genotype missingness (--geno 0.05),
-  sample missingness (--mind 0.1), MAF (--maf 0.01), HWE (--hwe 1e-6)
-- 47,974 variants passed QC from 50,000 input SNPs
-- Ran Firth logistic regression association testing (binary phenotype:
-  258 cases, 242 controls)
-- Generated Manhattan plot and QQ plot (genomic inflation λ = 0.974)
-
-### Key result
-Well-calibrated pipeline with no genomic inflation. No false positives
-on null synthetic data — correct behaviour confirming pipeline validity.
-
-### Figures
-![GWAS Plots](gwas_plots.png)
-
----
-
-## Project 2 — Variant Calling Pipeline
-*Coming soon*
-
-## Project 3 — Population Stratification + PCA
-*Coming soon*
-
-## Project 4 — Polygenic Risk Score (PRS)
-*Coming soon*
+All dependencies install in the first cell.
